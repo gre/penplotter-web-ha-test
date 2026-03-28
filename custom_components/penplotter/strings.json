@@ -1,0 +1,17 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect to Pen Plotter",
+        "description": "Enter the hostname and port of your penplotter-web server.",
+        "data": {
+          "host": "Hostname",
+          "port": "Port"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Cannot connect to the plotter. Check the hostname and port."
+    }
+  }
+}
