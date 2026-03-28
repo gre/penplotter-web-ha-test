@@ -66,7 +66,7 @@ A custom integration is included for [HACS](https://hacs.xyz/).
 | Pen Plotter Pen Down | Button | Lower pen |
 | Pen Plotter Home | Button | Return to home position |
 
-Status is polled every 5 seconds. The server must be running with HTTPS (self-signed certificates are accepted).
+Status is polled every 15 seconds. The server must be running with HTTPS (self-signed certificates are accepted).
 
 ## Disclaimer
 

@@ -12,6 +12,9 @@
     },
     "error": {
       "cannot_connect": "Cannot connect to the plotter. Check the hostname and port."
+    },
+    "abort": {
+      "already_configured": "This plotter is already configured."
     }
   }
 }
