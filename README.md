@@ -72,7 +72,7 @@ A custom integration is included for [HACS](https://hacs.xyz/).
 ![Device state](docs/ha-state.png)
 ![Dashboard](docs/ha-dashboard.png)
 
-Status is polled every 15 seconds. The server must be running with HTTPS (self-signed certificates are accepted).
+Status is polled every 15 seconds. The server must be running with HTTPS. If using self-signed certificates, uncheck "Verify SSL certificate" during setup.
 
 ## Disclaimer
 
