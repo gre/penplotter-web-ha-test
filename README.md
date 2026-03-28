@@ -57,7 +57,7 @@ A custom integration is included for [HACS](https://hacs.xyz/).
 
 | Entity | Type | Description |
 |--------|------|-------------|
-| Pen Plotter State | Sensor | Current state (`idle`, `plotting`, `paused`, `error`) with attributes: `current_file`, `elapsed`, `error` |
+| Pen Plotter State | Sensor | Current state (`idle`, `plotting`, `paused`, `error`) with attributes: `current_file`, `elapsed`, `can_home`, `error` |
 | Pen Plotter Progress | Sensor | Plot progress in % |
 | Pen Plotter Pause | Button | Pause current plot |
 | Pen Plotter Resume | Button | Resume paused plot |

@@ -23,7 +23,7 @@ class PenPlotterCoordinator(DataUpdateCoordinator):
             update_interval=timedelta(seconds=SCAN_INTERVAL_SECONDS),
         )
         self.base_url = build_base_url(entry.data[CONF_HOST], entry.data[CONF_PORT])
-        self._ssl = make_ssl_context(entry.data.get(CONF_VERIFY_SSL, False))
+        self._ssl = make_ssl_context(entry.data.get(CONF_VERIFY_SSL, True))
         self.device_info = DeviceInfo(
             identifiers={(DOMAIN, entry.entry_id)},
             name=entry.title,

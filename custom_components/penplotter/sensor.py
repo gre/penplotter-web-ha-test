@@ -1,4 +1,5 @@
 from homeassistant.components.sensor import SensorEntity
+from homeassistant.const import PERCENTAGE
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
@@ -43,7 +44,7 @@ class PenPlotterStateSensor(CoordinatorEntity, SensorEntity):
 
 class PenPlotterProgressSensor(CoordinatorEntity, SensorEntity):
     _attr_icon = "mdi:percent"
-    _attr_native_unit_of_measurement = "%"
+    _attr_native_unit_of_measurement = PERCENTAGE
     _attr_has_entity_name = True
 
     def __init__(self, coordinator: PenPlotterCoordinator, entry: ConfigEntry) -> None:

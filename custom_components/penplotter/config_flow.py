@@ -31,7 +31,7 @@ class PenPlotterConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             data_schema=vol.Schema({
                 vol.Required(CONF_HOST): cv.string,
                 vol.Required(CONF_PORT, default=DEFAULT_PORT): cv.port,
-                vol.Optional(CONF_VERIFY_SSL, default=False): bool,
+                vol.Optional(CONF_VERIFY_SSL, default=True): cv.boolean,
             }),
             errors=errors,
         )
