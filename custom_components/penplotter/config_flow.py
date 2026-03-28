@@ -5,7 +5,7 @@ from homeassistant.const import CONF_HOST, CONF_PORT
 from homeassistant.helpers import config_validation as cv
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
-from .const import CONF_VERIFY_SSL, DEFAULT_PORT, DOMAIN, make_ssl_context
+from .const import CONF_VERIFY_SSL, DEFAULT_PORT, DOMAIN, build_base_url, make_ssl_context
 
 
 class PenPlotterConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
@@ -40,8 +40,9 @@ class PenPlotterConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         try:
             session = async_get_clientsession(self.hass)
             ssl_ctx = make_ssl_context(user_input.get(CONF_VERIFY_SSL, False))
+            base = build_base_url(user_input[CONF_HOST], user_input[CONF_PORT])
             async with session.get(
-                f"https://{user_input[CONF_HOST]}:{user_input[CONF_PORT]}/api/status",
+                f"{base}/api/status",
                 ssl=ssl_ctx,
                 timeout=aiohttp.ClientTimeout(total=5),
             ) as resp:

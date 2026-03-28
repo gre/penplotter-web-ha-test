@@ -9,7 +9,7 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .const import CONF_VERIFY_SSL, DOMAIN, SCAN_INTERVAL_SECONDS, make_ssl_context
+from .const import CONF_VERIFY_SSL, DOMAIN, SCAN_INTERVAL_SECONDS, build_base_url, make_ssl_context
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -22,7 +22,7 @@ class PenPlotterCoordinator(DataUpdateCoordinator):
             hass, _LOGGER, name=DOMAIN,
             update_interval=timedelta(seconds=SCAN_INTERVAL_SECONDS),
         )
-        self.base_url = f"https://{entry.data[CONF_HOST]}:{entry.data[CONF_PORT]}"
+        self.base_url = build_base_url(entry.data[CONF_HOST], entry.data[CONF_PORT])
         self._ssl = make_ssl_context(entry.data.get(CONF_VERIFY_SSL, False))
         self.device_info = DeviceInfo(
             identifiers={(DOMAIN, entry.entry_id)},
