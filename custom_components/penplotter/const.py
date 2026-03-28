@@ -1,6 +1,7 @@
 import ssl
 
 DOMAIN = "penplotter"
+CONF_AREA = "area"
 DEFAULT_PORT = 4443
 SCAN_INTERVAL_SECONDS = 15
 
