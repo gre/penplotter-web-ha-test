@@ -6,7 +6,8 @@
         "description": "Enter the hostname and port of your penplotter-web server.",
         "data": {
           "host": "Hostname",
-          "port": "Port"
+          "port": "Port",
+          "verify_ssl": "Verify SSL certificate"
         }
       }
     },

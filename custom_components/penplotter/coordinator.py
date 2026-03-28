@@ -9,7 +9,7 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.device_registry import DeviceInfo
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .const import DOMAIN, SCAN_INTERVAL_SECONDS, SSL_CONTEXT
+from .const import CONF_VERIFY_SSL, DOMAIN, SCAN_INTERVAL_SECONDS, make_ssl_context
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -23,6 +23,7 @@ class PenPlotterCoordinator(DataUpdateCoordinator):
             update_interval=timedelta(seconds=SCAN_INTERVAL_SECONDS),
         )
         self.base_url = f"https://{entry.data[CONF_HOST]}:{entry.data[CONF_PORT]}"
+        self._ssl = make_ssl_context(entry.data.get(CONF_VERIFY_SSL, False))
         self.device_info = DeviceInfo(
             identifiers={(DOMAIN, entry.entry_id)},
             name=entry.title,
@@ -36,7 +37,7 @@ class PenPlotterCoordinator(DataUpdateCoordinator):
         try:
             async with session.get(
                 f"{self.base_url}/api/status",
-                ssl=SSL_CONTEXT,
+                ssl=self._ssl,
                 timeout=aiohttp.ClientTimeout(total=10),
             ) as resp:
                 resp.raise_for_status()
@@ -49,7 +50,7 @@ class PenPlotterCoordinator(DataUpdateCoordinator):
         session = async_get_clientsession(self.hass)
         async with session.post(
             f"{self.base_url}{path}",
-            ssl=SSL_CONTEXT,
+            ssl=self._ssl,
             timeout=aiohttp.ClientTimeout(total=30),
         ) as resp:
             resp.raise_for_status()
