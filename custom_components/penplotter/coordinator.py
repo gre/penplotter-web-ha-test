@@ -2,6 +2,8 @@ import logging
 from datetime import timedelta
 
 import aiohttp
+from homeassistant.config_entries import ConfigEntry
+from homeassistant.const import CONF_HOST, CONF_PORT
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.helpers.device_registry import DeviceInfo
@@ -15,15 +17,15 @@ _LOGGER = logging.getLogger(__name__)
 class PenPlotterCoordinator(DataUpdateCoordinator):
     """Polls the penplotter-web API for status."""
 
-    def __init__(self, hass: HomeAssistant, host: str, port: int, entry_id: str, title: str) -> None:
+    def __init__(self, hass: HomeAssistant, entry: ConfigEntry) -> None:
         super().__init__(
             hass, _LOGGER, name=DOMAIN,
             update_interval=timedelta(seconds=SCAN_INTERVAL_SECONDS),
         )
-        self.base_url = f"https://{host}:{port}"
+        self.base_url = f"https://{entry.data[CONF_HOST]}:{entry.data[CONF_PORT]}"
         self.device_info = DeviceInfo(
-            identifiers={(DOMAIN, entry_id)},
-            name=title,
+            identifiers={(DOMAIN, entry.entry_id)},
+            name=entry.title,
             manufacturer="Evil Mad Scientist",
             model="AxiDraw",
             configuration_url=self.base_url,

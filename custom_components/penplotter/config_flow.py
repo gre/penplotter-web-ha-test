@@ -2,6 +2,7 @@ import aiohttp
 import voluptuous as vol
 from homeassistant import config_entries
 from homeassistant.const import CONF_HOST, CONF_NAME, CONF_PORT
+from homeassistant.helpers.aiohttp_client import async_get_clientsession
 
 from .const import DEFAULT_PORT, DOMAIN, SSL_CONTEXT
 
@@ -36,14 +37,14 @@ class PenPlotterConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
     async def _validate(self, user_input: dict) -> dict:
         try:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(
-                    f"https://{user_input[CONF_HOST]}:{user_input[CONF_PORT]}/api/status",
-                    ssl=SSL_CONTEXT,
-                    timeout=aiohttp.ClientTimeout(total=5),
-                ) as resp:
-                    if resp.status != 200:
-                        return {"base": "cannot_connect"}
+            session = async_get_clientsession(self.hass)
+            async with session.get(
+                f"https://{user_input[CONF_HOST]}:{user_input[CONF_PORT]}/api/status",
+                ssl=SSL_CONTEXT,
+                timeout=aiohttp.ClientTimeout(total=5),
+            ) as resp:
+                if resp.status != 200:
+                    return {"base": "cannot_connect"}
         except (aiohttp.ClientError, TimeoutError):
             return {"base": "cannot_connect"}
         return {}

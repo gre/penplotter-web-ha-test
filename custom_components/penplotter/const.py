@@ -2,7 +2,7 @@ import ssl
 
 DOMAIN = "penplotter"
 DEFAULT_PORT = 4443
-SCAN_INTERVAL_SECONDS = 5
+SCAN_INTERVAL_SECONDS = 15
 
 SSL_CONTEXT = ssl.create_default_context()
 SSL_CONTEXT.check_hostname = False

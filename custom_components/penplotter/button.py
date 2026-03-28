@@ -1,5 +1,3 @@
-import logging
-
 from homeassistant.components.button import ButtonEntity
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
@@ -8,8 +6,6 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
 from .coordinator import PenPlotterCoordinator
-
-_LOGGER = logging.getLogger(__name__)
 
 BUTTONS = [
     ("pause", "Pause", "mdi:pause", "/api/pause"),
